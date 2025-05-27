@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Hotel hotel = new Hotel();
+
+        int opcion;
+        do {
+            System.out.println("\n===== SISTEMA DE RESERVAS DE HOTEL =====");
+            System.out.println("1. Ver habitaciones disponibles");
+            System.out.println("2. Crear una nueva reserva");
+            System.out.println("3. Ver todas las reservas");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // limpiar buffer
+
+            switch (opcion) {
+                case 1:
+                    hotel.mostrarDisponibles();
+                    break;
+                case 2:
+                    System.out.print("Nombre del cliente: ");
+                    String nombre = scanner.nextLine();
+
+                    System.out.print("Tipo de habitación (Simple/Doble/Suite): ");
+                    String tipo = scanner.nextLine();
+
+                    Reserva reserva = hotel.crearReserva(nombre, tipo);
+
+                    if (reserva != null) {
+                        System.out.println("✔ Reserva creada exitosamente:");
+                        System.out.println(reserva.getInfoReserva());
+                    } else {
+                        System.out.println("✖ No hay habitaciones disponibles de ese tipo.");
+                    }
+                    break;
+                case 3:
+                    hotel.mostrarReservas();
+                    break;
+                case 0:
+                    System.out.println(" Gracias por usar el sistema.");
+                    break;
+                default:
+                    System.out.println(" Opción inválida.");
+            }
+
+        } while (opcion != 0);
+
+        scanner.close();
+    }
+}
